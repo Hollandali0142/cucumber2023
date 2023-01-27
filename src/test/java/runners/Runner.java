@@ -2,6 +2,7 @@ package runners;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.junit.runner.RunWith;
 
     //@RunWith:Cucumber.class lari calistirmak icin kullanilir, kullanmadan Runner calismaz
@@ -10,11 +11,18 @@ import org.junit.runner.RunWith;
     //calistirmak istedigim feature file belirtiyorum
     // @CucumberOptions() : feature path i eklemek icin kullanilir, step deginitin path, tag, dryRun, report icerir
     @CucumberOptions(
-
-            features = "./src/test/resources/firstfeaturefile.feature",//Zorunludur=>Feature dosyasini pathini girmemiz lazim
-            glue ="stepdefinitions",//Zrunludur => Stepdefinition adresi(path)'i
-            tags ="@google_search",//hangi feature file kosmali onu belirtiyoruz=>Eger tags kullanmaz isek Runne tum feature calistirir
-            dryRun = false //opsiyoneldir
+            plugin = {
+                   "pretty",
+                    "html:target/default-cucumber-reports.html",
+                    "json:target/json-reports/cucumber.json",
+                    "junit:target/xml-report/cucumber.xml",
+                    "rerun:target/failedRerun.txt",
+                    "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
+            },
+            features = "src/test/resources",//Zorunludur=>Feature dosyasini pathini girmemiz lazim
+          glue ="stepdefinitions",//Zrunludur => Stepdefinition adresi(path)'i
+            tags ="@room_rezervasyonu",//hangi feature file kosmali onu belirtiyoruz=>Eger tags kullanmaz isek Runne tum feature calistirir
+            dryRun =false//opsiyoneldir false yaparsak tarayici ile calisir
 
     )
     //      Runner:feature file lari calistirmak icin kullanilir

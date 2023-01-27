@@ -56,17 +56,51 @@ public class Day15_C1_GoogleSearchStepDefinitions {
 
         Driver.closeDriver();
     }
-    @Given("kullanici cicek'i arar")
+    @Given("kullanici cicek arar")
     public void kullanici_cicek_i_arar() {
-       googlePage.googleSearchBox.sendKeys("cicek"+ Keys.ENTER);
+
+        googlePage.googleSearchBox.sendKeys("cicek"+ Keys.ENTER);
     }
     @Then("kullanici sonuclarda cicek oldugunu verify eder")
     public void kullanici_sonuclarda_cicek_oldugunu_verify_eder() {
 
-       Assert.assertTrue("Cicek", Driver.getDriver().getTitle().contains("cicek"));
+       Assert.assertTrue("cicek", Driver.getDriver().getTitle().contains("cicek"));
 
        Driver.closeDriver();
 
     }
+    @Given("kullanici volkswagen arar")
+    public void kullanici_volkswagen_i_arar() {
+
+        googlePage.googleSearchBox.sendKeys("volkswagen" +Keys.ENTER);
+
+    }
+    @Then("kullanici sonuclarda volkswagen oldugunu verify eder")
+    public void kullanici_sonuclarda_volkswagen_oldugunu_verify_eder() {
+
+        Assert.assertTrue("volkswagen", Driver.getDriver().getTitle().contains("volkswagen"));
+
+        Driver.closeDriver();
+
+    }
+
+    @Given("kullanici {string} arar")
+    public void kullanici_arar(String string) {
+
+        googlePage.googleSearchBox.sendKeys(string +Keys.ENTER);
+
+    }
+    @Then("kullanici sonuclarda {string} oldugunu verify et")
+    public void kullanici_sonuclarda_oldugunu_verify_et(String string) {
+
+       String title= Driver.getDriver().getTitle();
+       Assert.assertTrue(title.contains(string));
+
+
+    }
+
+
+
+
 
 }
